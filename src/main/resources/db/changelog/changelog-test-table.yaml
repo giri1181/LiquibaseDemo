@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: giri1181@gmail.com
+      changes:
+        - createTable:
+            tableName: User
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+        id: user_load
+        author: giri1181@gmail.com
+        runOnChange: true
+        changes:
+        - delete:
+            tableName: User
+        - loadData:
+            columns:
+            - column:
+                name: first_name
+                header: columnname1
+                type: STRING
+            - column:
+                name: last_name
+                header: columnname2
+                type: STRING
+            encoding: UTF-8
+            file: db/changelog/data/test-data.csv
+            quotchar: ""
+            separator: ","
+            tableName: User
+  

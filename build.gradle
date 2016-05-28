@@ -1,0 +1,45 @@
+buildscript {
+    repositories {    
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+ext {
+    artifactId = "swagger-demo"
+    buildNumber = System.env.CI_BUILD_ID ?: '0'
+    buildId = System.env.CI_BUILD_REF ? System.env.CI_BUILD_REF[0..7] : System.properties['user.name']
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply from: 'gradle/base.gradle'
+apply plugin: 'spring-boot'
+
+group = 'com.demo.liquibase'
+version = "1.0"
+
+
+
+dependencies {
+  compile 'org.springframework.boot:spring-boot-starter-web'
+  compile 'org.springframework.boot:spring-boot-starter-actuator'
+  compile 'org.springframework.boot:spring-boot-starter-jdbc'
+  runtime 'org.liquibase:liquibase-core:3.3.5'
+  runtime 'mysql:mysql-connector-java:5.1.38'
+  testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Liquibase Demo',
+                 'Implementation-Version': version
+    }
+}
+

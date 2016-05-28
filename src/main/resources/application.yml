@@ -1,0 +1,46 @@
+
+spring:
+  jackson:
+    serialization.write_dates_as_timestamps: false
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/test?useSSL=false"
+    username: root
+    password: "Aqswde@123"
+    validation-query: SELECT 1
+    test-on-borrow: true
+
+security:
+  cors.allow.origin: "*"
+
+endpoints:
+  enabled: false
+  info:
+    enabled: true
+    sensitive: false
+  health:
+    enabled: true
+    sensitive: false
+
+
+# Logging
+logging:
+  level:
+    com.pb: DEBUG
+    springfox: WARN
+    org.springframework.web.client: INFO
+
+---
+spring:
+  profiles: default
+
+---
+
+spring:
+  profiles: production
+
+
+---
+
+spring:
+  profiles: test
